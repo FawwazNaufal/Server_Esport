@@ -1,0 +1,19 @@
+name: CI Pipeline Game Server
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout kode
+      uses: actions/checkout@v3
+
+    - name: Build Docker Image
+      run: docker build -t my-game-server:latest .
+
+    - name: Test Image (Pastikan image bisa dibuat tanpa error)
+      run: docker image inspect my-game-server:latest > /dev/null
